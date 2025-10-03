@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Mental Wellness Companion</title>
+  <link rel="stylesheet" href="styles/styles.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 380px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .popup-container {
+      background: white;
+      min-height: 500px;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .header-icon {
+      font-size: 48px;
+      margin-bottom: 8px;
+    }
+
+    .header h1 {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .header p {
+      font-size: 13px;
+      opacity: 0.9;
+      margin-top: 4px;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .ai-status {
+      background: #f0fdf4;
+      border: 1px solid #86efac;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: #166534;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ai-status.inactive {
+      background: #fef2f2;
+      border-color: #fca5a5;
+      color: #991b1b;
+    }
+
+    .summary-card {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    .summary-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #475569;
+      margin-bottom: 12px;
+    }
+
+    .emotion-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .emotion-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .emotion-badge {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .exercises {
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 12px;
+    }
+
+    .exercise-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .exercise-btn {
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+    }
+
+    .exercise-btn:hover {
+      border-color: #667eea;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+    }
+
+    .exercise-icon {
+      font-size: 28px;
+    }
+
+    .exercise-info {
+      flex: 1;
+    }
+
+    .exercise-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 2px;
+    }
+
+    .exercise-desc {
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .action-btn {
+      background: #f1f5f9;
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 13px;
+      font-weight: 600;
+      color: #475569;
+    }
+
+    .action-btn:hover {
+      background: #e2e8f0;
+      transform: translateY(-1px);
+    }
+
+    .footer {
+      padding: 16px 20px;
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+      text-align: center;
+      font-size: 11px;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+  <div class="popup-container">
+    <div class="header">
+      <div class="header-icon">🧘</div>
+      <h1>AI Wellness Companion</h1>
+      <p>Your mental wellness assistant</p>
+    </div>
+
+    <div class="content">
+      <div id="aiStatus" class="ai-status">
+        <span>✨</span>
+        <span id="aiStatusText">Checking AI availability...</span>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-title">Today's Emotional Summary</div>
+        <div id="emotionSummary" class="emotion-grid">
+          <div class="emotion-item">
+            <span class="emotion-badge" style="background: #22c55e;"></span>
+            <span>Positive: <strong id="posCount">0</strong></span>
+          </div>
+          <div class="emotion-item">
+            <span class="emotion-badge" style="background: #f59e0b;"></span>
+            <span>Anxiety: <strong id="anxCount">0</strong></span>
+          </div>
+          <div class="emotion-item">
+            <span class="emotion-badge" style="background: #ef4444;"></span>
+            <span>Negative: <strong id="negCount">0</strong></span>
+          </div>
+          <div class="emotion-item">
+            <span class="emotion-badge" style="background: #dc2626;"></span>
+            <span>Anger: <strong id="angerCount">0</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exercises">
+        <div class="section-title">Wellness Exercises</div>
+        <div class="exercise-grid">
+          <button class="exercise-btn" id="breathing">
+            <span class="exercise-icon">🫁</span>
+            <div class="exercise-info">
+              <div class="exercise-name">Breathing</div>
+              <div class="exercise-desc">Calm your mind</div>
+            </div>
+          </button>
+          <button class="exercise-btn" id="affirmation">
+            <span class="exercise-icon">💛</span>
+            <div class="exercise-info">
+              <div class="exercise-name">Affirmation</div>
+              <div class="exercise-desc">Boost positivity</div>
+            </div>
+          </button>
+          <button class="exercise-btn" id="mindfulness">
+            <span class="exercise-icon">🍃</span>
+            <div class="exercise-info">
+              <div class="exercise-name">Mindfulness</div>
+              <div class="exercise-desc">Stay present</div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <div class="quick-actions">
+        <button class="action-btn" id="dashboard">📊 Dashboard</button>
+        <button class="action-btn" id="options">⚙️ Settings</button>
+      </div>
+    </div>
+
+    <div class="footer">
+      🔒 Privacy-first • AI-powered • Local processing
+    </div>
+  </div>
+
+  <script src="ai-service.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

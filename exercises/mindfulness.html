@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mindfulness Exercise - Mental Wellness Companion</title>
+  <link rel="stylesheet" href="../styles/styles.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .exercise-container {
+      max-width: 650px;
+      width: 90%;
+      margin: 40px auto;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      color: #11998e;
+      font-size: 32px;
+      margin: 0 0 12px 0;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      color: #64748b;
+      font-size: 16px;
+      margin-bottom: 32px;
+    }
+
+    .mindfulness-card {
+      background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+      border-radius: 16px;
+      padding: 32px;
+      margin: 24px 0;
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 20px rgba(168, 237, 234, 0.4);
+    }
+
+    .tip-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0f766e;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .tip-text {
+      font-size: 20px;
+      font-weight: 500;
+      color: #134e4a;
+      line-height: 1.7;
+      max-width: 500px;
+    }
+
+    .practice-steps {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      margin: 24px 0;
+      text-align: left;
+    }
+
+    .practice-steps h3 {
+      color: #11998e;
+      font-size: 18px;
+      margin: 0 0 16px 0;
+    }
+
+    .practice-steps ol {
+      margin: 0;
+      padding-left: 20px;
+      color: #475569;
+      line-height: 1.8;
+    }
+
+    .practice-steps li {
+      margin-bottom: 8px;
+    }
+
+    .ai-badge {
+      display: inline-block;
+      background: rgba(17, 153, 142, 0.1);
+      color: #11998e;
+      padding: 6px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 16px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 32px;
+    }
+
+    button {
+      padding: 14px 28px;
+      border-radius: 12px;
+      border: none;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    #newTip {
+      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+      color: white;
+    }
+
+    #close {
+      background: #e2e8f0;
+      color: #64748b;
+    }
+
+    .loading {
+      display: none;
+      color: #11998e;
+      font-size: 14px;
+      margin: 16px 0;
+    }
+
+    .loading.active {
+      display: block;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .exercise-container {
+        padding: 24px;
+      }
+      
+      h1 {
+        font-size: 24px;
+      }
+      
+      .tip-text {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="exercise-container">
+    <h1>🍃 Mindfulness Practice</h1>
+    <p class="subtitle">Ground yourself in the present moment</p>
+
+    <div class="mindfulness-card">
+      <div class="tip-title" id="tipCategory">Present Moment Awareness</div>
+      <p id="tipText" class="tip-text">
+        Take a moment to notice your surroundings. What can you see, hear, and feel right now?
+      </p>
+    </div>
+
+    <div class="practice-steps">
+      <h3>How to Practice:</h3>
+      <ol>
+        <li>Find a comfortable position</li>
+        <li>Close your eyes or soften your gaze</li>
+        <li>Bring attention to your breath</li>
+        <li>Notice thoughts without judgment</li>
+        <li>Gently return focus to the present</li>
+      </ol>
+    </div>
+
+    <p class="loading" id="loading">✨ Generating personalized mindfulness tip...</p>
+
+    <div id="aiBadge" class="ai-badge" style="display: none;">
+      ✨ AI-Generated Insight
+    </div>
+
+    <div class="controls">
+      <button id="newTip" aria-label="Get new mindfulness tip">
+        New Tip
+      </button>
+      <button id="close" aria-label="Close exercise">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <script src="../ai-service.js"></script>
+  <script src="mindfulness.js"></script>
+</body>
+</html>
+

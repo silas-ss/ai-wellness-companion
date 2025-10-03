@@ -1,0 +1,49 @@
+{
+  "manifest_version": 3,
+  "name": "AI Mental Wellness Companion",
+  "version": "1.0",
+  "description": "AI-powered mental wellness assistant that analyzes emotional tone, provides smart interventions, and offers personalized guided exercises using Chrome's built-in AI.",
+  "permissions": [
+    "notifications",
+    "storage",
+    "alarms",
+    "scripting",
+    "activeTab",
+    "aiLanguageModelOriginTrial",
+    "aiSummarizerOriginTrial",
+    "aiTranslatorOriginTrial"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["ai-service.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "styles/icon16x16.png",
+      "32": "styles/icon32x32.png",
+      "192": "styles/icon192x192.png"
+    }
+  },
+  "icons": {
+    "16": "styles/icon16x16.png",
+    "32": "styles/icon32x32.png",
+    "192": "styles/icon192x192.png"
+  },
+  "options_page": "options.html",
+  "web_accessible_resources": [
+    {
+      "resources": ["exercises/*.html", "styles/*.css", "ai-service.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

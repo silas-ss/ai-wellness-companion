@@ -1,0 +1,8 @@
+/* styles/styles.css */
+body { margin:0; padding:0; background: #f6f7fb; color:#111; }
+.popup { width:320px; padding:14px; font-family: Arial, sans-serif; }
+.popup header { display:flex; align-items:center; gap:12px; }
+.popup header h2 { margin:0; font-size:16px; }
+.buttons { display:flex; flex-direction:column; gap:8px; margin-top:12px; }
+button { padding:10px 12px; border-radius:8px; border:none; background:#1976d2; color:#fff; cursor:pointer; }
+button[disabled] { opacity:0.6; cursor:not-allowed; }

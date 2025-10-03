@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Guided Breathing</title>
+  <link rel="stylesheet" href="../styles/styles.css" />
+  <style>
+    .exercise {
+      max-width:480px;
+      margin:40px auto;
+      text-align:center;
+      padding:20px;
+      border-radius:12px;
+      background:#fff;
+      box-shadow:0 6px 20px rgba(0,0,0,0.08);
+      font-family: Arial, sans-serif;
+    }
+    #circle { width:160px; height:160px; margin:20px auto; border-radius:50%; background:#D7EEFF; display:flex; align-items:center; justify-content:center; font-size:18px; color:#075985; }
+    #controls button { padding:10px 16px; margin:6px; border-radius:8px; border:none; cursor:pointer; }
+  </style>
+</head>
+<body>
+  <div class="exercise">
+    <h1>Breathing Exercise</h1>
+    <p id="guide">Get comfortable. Follow the circle.</p>
+    <div id="circle">Inhale</div>
+    <div id="controls">
+      <button id="start">Start</button>
+      <button id="stop">Stop</button>
+      <button id="close">Close</button>
+    </div>
+  </div>
+
+  <script src="breathing.js"></script>
+</body>
+</html>

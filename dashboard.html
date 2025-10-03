@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wellness Dashboard - AI Mental Wellness Companion</title>
+  <link rel="stylesheet" href="styles/styles.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .dashboard-container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      color: white;
+      margin-bottom: 40px;
+    }
+
+    .header h1 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .stat-icon {
+      font-size: 36px;
+      margin-bottom: 12px;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: #64748b;
+      margin-bottom: 8px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-value {
+      font-size: 32px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    .chart-card {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .chart-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    .time-filter {
+      display: flex;
+      gap: 8px;
+    }
+
+    .filter-btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      background: #f1f5f9;
+      color: #475569;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover {
+      background: #e2e8f0;
+    }
+
+    .filter-btn.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .chart-content {
+      min-height: 300px;
+    }
+
+    .emotion-bar-chart {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .emotion-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .emotion-label {
+      width: 100px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .emotion-badge {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .bar-container {
+      flex: 1;
+      height: 32px;
+      background: #f1f5f9;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 8px;
+      transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      color: white;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .insights-card {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+    }
+
+    .insights-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .insight-item {
+      background: #f8fafc;
+      border-left: 4px solid #667eea;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .insight-text {
+      color: #475569;
+      line-height: 1.6;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    #clearData {
+      background: #ef4444;
+      color: white;
+    }
+
+    #exportData {
+      background: #10b981;
+      color: white;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #94a3b8;
+    }
+
+    .empty-state-icon {
+      font-size: 64px;
+      margin-bottom: 16px;
+    }
+
+    .empty-state-text {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .header h1 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <div class="header">
+      <h1>📊 Wellness Dashboard</h1>
+      <p>Track your emotional wellness journey</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">📝</div>
+        <div class="stat-label">Total Captures</div>
+        <div class="stat-value" id="totalCaptures">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">😊</div>
+        <div class="stat-label">Positive</div>
+        <div class="stat-value" id="totalPositive">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">😰</div>
+        <div class="stat-label">Anxiety</div>
+        <div class="stat-value" id="totalAnxiety">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🏋️</div>
+        <div class="stat-label">Exercises Done</div>
+        <div class="stat-value" id="totalExercises">0</div>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-header">
+        <h2 class="chart-title">Emotional Distribution</h2>
+        <div class="time-filter">
+          <button class="filter-btn active" data-period="today">Today</button>
+          <button class="filter-btn" data-period="week">Week</button>
+          <button class="filter-btn" data-period="month">Month</button>
+        </div>
+      </div>
+      <div class="chart-content" id="chartContent">
+        <div class="emotion-bar-chart" id="emotionChart"></div>
+      </div>
+    </div>
+
+    <div class="insights-card">
+      <h2 class="insights-title">
+        <span>✨</span>
+        AI-Powered Insights
+      </h2>
+      <div id="insightsContainer">
+        <div class="empty-state">
+          <div class="empty-state-icon">🔍</div>
+          <div class="empty-state-text">Not enough data yet. Browse the web and your wellness companion will provide insights.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="exportData">📥 Export Data</button>
+      <button id="clearData">🗑️ Clear All Data</button>
+    </div>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

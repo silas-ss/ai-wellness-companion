@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Options</title>
+  <link rel="stylesheet" href="styles/styles.css" />
+</head>
+<body>
+  <div class="options">
+    <h1>Settings</h1>
+    <label>Reminder interval (minutes): <input id="interval" type="number" min="15" value="120" /></label>
+    <br/><br/>
+    <label>Sensitivity:
+      <select id="sensitivity">
+        <option value="low">Low</option>
+        <option value="medium" selected>Medium</option>
+        <option value="high">High</option>
+      </select>
+    </label>
+    <br/><br/>
+    <label><input id="enableNotifications" type="checkbox" /> Enable notifications</label>
+    <br/><br/>
+    <button id="save">Save</button>
+    <button id="deleteAll">Delete all local data</button>
+    <p id="status"></p>
+  </div>
+  <script src="options.js"></script>
+</body>
+</html>
