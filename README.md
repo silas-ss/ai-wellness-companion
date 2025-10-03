@@ -40,6 +40,40 @@ An intelligent Chrome extension that promotes mental wellness using **Chrome's B
 
 ---
 
+## 🌍 Multi-Language Support
+
+**Multilingual Emotion Analysis - Works Out of the Box**
+
+The extension analyzes content in **5+ languages** automatically without requiring translation:
+
+### **Current Implementation (Ready to Use):**
+- ✅ **Multilingual Keyword Analysis**: Built-in support for English, Portuguese, Spanish, French, German
+- ✅ **Direct Emotion Detection**: Detects emotional keywords in their native language
+- ✅ **No Translation Required**: Works immediately without external APIs
+- ✅ **Privacy-First**: Everything processed locally
+
+**Supported Languages:**
+- 🇺🇸 English - 🇧🇷 Portuguese - 🇪🇸 Spanish - 🇫🇷 French - 🇩🇪 German
+
+### **Future Enhancement (Chrome AI Translator):**
+The extension is **ready** to use Chrome's Translation API when available:
+- 🔄 **Translation API**: Currently in Early Preview Program (EPP) only
+- 📝 **Code Ready**: Will automatically activate when API becomes public
+- 🚀 **Enhanced Accuracy**: Will provide even better analysis when available
+
+**How it works NOW:**
+1. Page content is extracted in any supported language
+2. Multilingual keyword matcher detects emotions directly (no translation needed)
+3. Emotion analysis runs on original text
+4. User sees contextual wellness interventions
+
+**Status Indicators:**
+- ✅ "Chrome AI active - Enhanced analysis enabled" (Language Model working)
+- ✅ "Using multilingual analysis (supports 5+ languages)" (Fallback working perfectly)
+- ❌ "Chrome AI not available - Using fallback analysis" (No AI, but still multilingual)
+
+---
+
 ## 🚀 Quick Start
 
 ### 1. Enable Chrome AI

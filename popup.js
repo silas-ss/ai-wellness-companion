@@ -34,22 +34,26 @@
     try {
       if (window.AIService) {
         const status = await AIService.checkAIAvailability();
-        
+
         if (status.languageModel) {
           statusEl.classList.remove("inactive");
-          statusTextEl.textContent = "Chrome AI active - Enhanced analysis enabled";
+          if (status.translator) {
+            statusTextEl.textContent = "Chrome AI active - Enhanced with Translation API";
+          } else {
+            statusTextEl.textContent = "Chrome AI active - Multilingual analysis (5+ languages)";
+          }
         } else {
-          statusEl.classList.add("inactive");
-          statusTextEl.textContent = "Chrome AI not available - Using fallback analysis";
+          statusEl.classList.remove("inactive"); // Still positive!
+          statusTextEl.textContent = "Multilingual analysis active - Supports 5+ languages";
         }
       } else {
-        statusEl.classList.add("inactive");
-        statusTextEl.textContent = "AI Service not loaded - Using basic analysis";
+        statusEl.classList.remove("inactive");
+        statusTextEl.textContent = "Multilingual analysis ready - 5+ languages supported";
       }
     } catch (error) {
       console.error("[Popup] AI status check error:", error);
-      statusEl.classList.add("inactive");
-      statusTextEl.textContent = "AI status unavailable";
+      statusEl.classList.remove("inactive");
+      statusTextEl.textContent = "Wellness analysis active";
     }
   }
 

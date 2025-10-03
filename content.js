@@ -34,8 +34,9 @@
       }
 
       console.log(`[Wellness Companion] Analyzing ${text.length} characters...`);
+      console.log(`[Wellness Companion] Sample text: "${text.slice(0, 150)}..."`);
 
-      // Use Chrome AI to analyze emotion
+      // Use Chrome AI to analyze emotion (with automatic translation if needed)
       const result = await AIService.analyzeEmotion(text);
       
       console.log("[Wellness Companion] Analysis result:", result);
@@ -221,7 +222,7 @@
   // Initialize AI service
   async function initialize() {
     console.log("[Wellness Companion] Initializing...");
-    
+
     // Check AI availability
     const aiStatus = await AIService.checkAIAvailability();
     console.log("[Wellness Companion] AI Status:", aiStatus);
@@ -237,6 +238,14 @@
     if (aiStatus.summarizer) {
       await AIService.initSummarizer();
       console.log("[Wellness Companion] Chrome AI Summarizer ready");
+    }
+
+    // Translation API is in EPP only - extension works multilingual without it
+    if (aiStatus.translator) {
+      await AIService.initTranslator();
+      console.log("[Wellness Companion] 🚀 Chrome AI Translator ready - Enhanced translation enabled");
+    } else {
+      console.info("[Wellness Companion] 🌍 Using multilingual analysis - Supports English, Portuguese, Spanish, French, German");
     }
   }
 
